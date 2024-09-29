@@ -22,8 +22,8 @@ def get_text_messages(message):
     bot.send_message(message.from_user.id, decod_abr)    
 
 table_name = 'abr'
-file_path = 'аббревиатуры.csv'
-file_name = 'аббревиатуры.csv'
+file_path = '/data/input.csv'
+file_name = 'data/input.csv'
 if not(os.path.isfile(file_path)):
     os.write(2,'Файл не найден'.encode('utf-8'))
     quit()
