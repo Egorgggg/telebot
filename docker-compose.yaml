@@ -1,0 +1,7 @@
+services:
+  bot:
+    image: d7777k/bot:0.1
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - ./.env
