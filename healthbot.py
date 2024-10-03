@@ -64,21 +64,15 @@ def opening(file,type,message,downloaded_file):
 
 
 @bot.message_handler(content_types=['text'])
-def get_text_messages(message):
-    global password
-    text = message.text        
-    if text != password_real:
-        password = False
-        bot.send_message(message.from_user.id,"0") 
-        decod_abr = find_abbr(message)
-        bot.send_message(message.from_user.id, decod_abr)
-    else:
-        password = True
-        bot.send_message(message.from_user.id,"1")   
+def get_text_messages(message): 
+    decod_abr = find_abbr(message)
+    bot.send_message(message.from_user.id, decod_abr)   
 
 @bot.message_handler(content_types= ['document'])
 def input_file(message):
-    if password:
+    global password
+    password = message.text
+    if password == password_real:
         file_info = bot.get_file(message.document.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
 
@@ -98,6 +92,8 @@ def input_file(message):
             my_file.write('xc,joke')    
         renaming('data/input.csv','data/input_old.csv')    
         renaming('data/input_new.csv','data/input.csv')
+    else:
+        bot.send_message(message.from_user.id,"Неверный пароль")
 
 def create_table(table_name,file_path):
     connection = sqlite3.connect('my_database.db')

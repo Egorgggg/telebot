@@ -1,6 +1,6 @@
 services:
   bot:
-    image: pochti/healthbot
+    image: pochti/healthbot:1.1.1
     volumes:
       - ./data:/app/data
     env_file:
