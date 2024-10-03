@@ -36,6 +36,9 @@ def lowing(file_name):
         print(line.lower(), end='')
 
 def find_abbr(message):
+    global password
+    if message.text == password_real:
+        password = password_real
     try:
         connection = sqlite3.connect('my_database.db',timeout=10.0)
         cursor = connection.cursor()
@@ -69,9 +72,7 @@ def get_text_messages(message):
     bot.send_message(message.from_user.id, decod_abr)   
 
 @bot.message_handler(content_types= ['document'])
-def input_file(message):
-    global password
-    password = message.text
+def input_file(message):    
     if password == password_real:
         file_info = bot.get_file(message.document.file_id)
         downloaded_file = bot.download_file(file_info.file_path)
